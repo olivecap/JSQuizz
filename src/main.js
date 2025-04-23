@@ -146,11 +146,7 @@ function onClickStartQuizz(event) {
 
   // Format id
   function formatId(id) {
-    let idFormated = null;
-
-    // if (!id) {
-    // } else {
-    idFormated = id
+    return id
       .replaceAll(" ", "-")
       .replaceAll("(", "")
       .replaceAll(")", "")
@@ -161,9 +157,6 @@ function onClickStartQuizz(event) {
       .replaceAll("0", "id0")
       .replaceAll("1", "id1")
       .toLowerCase();
-    // }
-
-    return idFormated;
   }
 
   function displaySubmitButtonQuestion() {
