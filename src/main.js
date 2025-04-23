@@ -146,7 +146,24 @@ function onClickStartQuizz(event) {
 
   // Format id
   function formatId(id) {
-    return id.replaceAll(" ", "-").toLowerCase();
+    let idFormated = null;
+
+    // if (!id) {
+    // } else {
+    idFormated = id
+      .replaceAll(" ", "-")
+      .replaceAll("(", "")
+      .replaceAll(")", "")
+      .replaceAll(".", "")
+      .replaceAll("[", "-")
+      .replaceAll("]", "-")
+      .replaceAll(`"`, "s")
+      .replaceAll("0", "id0")
+      .replaceAll("1", "id1")
+      .toLowerCase();
+    // }
+
+    return idFormated;
   }
 
   function displaySubmitButtonQuestion() {
@@ -184,14 +201,14 @@ function onClickStartQuizz(event) {
       // Increment score
       score++;
 
+    // Prepare new question
+    displayNextQuestion();
+
     // Show answer feedbacks
     showAnswserFeedback(isCorrect, question.correct, answerValue);
 
     // Disable radio button to avoid to click when you have make choice
     DisableRadioButtonAnswers();
-
-    // Prepare new question
-    displayNextQuestion();
   }
 
   function showAnswserFeedback(isCorrect, questionCorrect, answerValue) {
@@ -237,9 +254,13 @@ function onClickStartQuizz(event) {
     const TIMOUT = 4000;
     let remainingTimeout = 4000;
 
+    function nextLabelButton() {
+      return `Next (${remainingTimeout / 1000}s)`;
+    }
+
     // Add new button
     const nextButton = document.createElement("button");
-    nextButton.innerText = `next (${TIMOUT / 1000}s)`;
+    nextButton.innerText = nextLabelButton();
     app.appendChild(nextButton);
 
     // Add event listener to close timer if cuser click on button
@@ -251,7 +272,7 @@ function onClickStartQuizz(event) {
 
     const interval = setInterval(() => {
       remainingTimeout -= 1000;
-      nextButton.innerText = `next (${remainingTimeout / 1000}s)`;
+      nextButton.innerText = nextLabelButton();
     }, 1000);
 
     function handleNextQuestion() {
